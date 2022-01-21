@@ -1,5 +1,4 @@
 import { renderTasks } from "./render.js";
-import { setItem } from "./storage.js";
 import { createTask, getTasksList } from "./tasksGateway.js";
 
 export function onClickAdd() {
@@ -20,8 +19,5 @@ export function onClickAdd() {
 
   createTask(newTask)
     .then(() => getTasksList())
-    .then(newTasksList => {
-      setItem('tasksList', newTasksList)
-      renderTasks()
-    });
+    .then(() => renderTasks());
 };

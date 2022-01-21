@@ -1,4 +1,4 @@
-import { getItem } from './storage.js';
+import { getTasksList } from './tasksGateway.js';
 
 function compareTasks(a, b) {
   if (a.done - b.done !== 0) {
@@ -13,7 +13,6 @@ function compareTasks(a, b) {
 function createCheckbox({ done}) {
   const checkbox = document.createElement('input');
   checkbox.setAttribute('type', 'checkbox');
-  // checkbox.setAttribute('data-id', id);
   checkbox.checked = done;
   checkbox.classList.add('list-item__checkbox');
   return checkbox;
@@ -43,9 +42,10 @@ function createListItem({ text, done, id }) {
 
 export function renderTasks() {
   const listElem = document.querySelector('.list');
-  const tasks = getItem('tasksList') || [];
   listElem.innerHTML = '';
-  const tasksElems = tasks.sort(compareTasks).map(createListItem);
 
-  listElem.append(...tasksElems);
+  getTasksList().then(tasks => {
+    const tasksElems = tasks.sort(compareTasks).map(createListItem);
+    listElem.append(...tasksElems);
+  })
 }
