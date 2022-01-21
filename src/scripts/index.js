@@ -1,9 +1,16 @@
 import { renderTasks } from "./render.js";
 import { initToDoListHandlers } from "./todoList.js";
+import { getTasksList } from "./tasksGateway.js";
+import { setItem } from "./storage.js";
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderTasks()
-  initToDoListHandlers()
+  getTasksList()
+    .then(tasksList => {
+      setItem('tasksList', tasksList);
+      renderTasks();
+    })
+  initToDoListHandlers();
 })
 
 const onStorageChange = (e) => {
@@ -11,4 +18,5 @@ const onStorageChange = (e) => {
     renderTasks()
   }
 }
+
 window.addEventListener('storage', onStorageChange)

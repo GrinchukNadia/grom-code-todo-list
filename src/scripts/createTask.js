@@ -1,9 +1,9 @@
 import { renderTasks } from "./render.js";
-import { getItem, setItem } from "./storage.js";
+import { setItem } from "./storage.js";
+import { createTask, getTasksList } from "./tasksGateway.js";
 
 export function onClickAdd() {
   const taskInputElem = document.querySelector('.task-input');
-
   const text = taskInputElem.value;
 
   if (!text) {
@@ -11,16 +11,17 @@ export function onClickAdd() {
   }
 
   taskInputElem.value = '';
-  const tasks = getItem('tasksList') || []
-    
-  const newTasksList = tasks.concat({
+
+  const newTask = {
     text,
     done: false,
-    date: new Date().toISOString(),
-    id: Date.now(),
-  })
+    createDate: new Date().toISOString(),
+  }
 
-  setItem('tasksList', newTasksList)
-
-  renderTasks(tasks);
+  createTask(newTask)
+    .then(() => getTasksList())
+    .then(newTasksList => {
+      setItem('tasksList', newTasksList)
+      renderTasks()
+    });
 };

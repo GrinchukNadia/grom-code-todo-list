@@ -10,23 +10,33 @@ function compareTasks(a, b) {
   return new Date(b.date) - new Date(a.date);
 }
 
-function createCheckbox({ done, id }) {
+function createCheckbox({ done}) {
   const checkbox = document.createElement('input');
   checkbox.setAttribute('type', 'checkbox');
-  checkbox.setAttribute('data-id', id);
+  // checkbox.setAttribute('data-id', id);
   checkbox.checked = done;
-  checkbox.classList.add('list__item-checkbox');
+  checkbox.classList.add('list-item__checkbox');
   return checkbox;
 }
 
 function createListItem({ text, done, id }) {
   const listItemElem = document.createElement('li');
-  listItemElem.classList.add('list__item');
-  const checkbox = createCheckbox({ done, id });
+  listItemElem.classList.add('list-item', 'list__item');
+  listItemElem.setAttribute('data-id', id)
+  const checkbox = createCheckbox({ done});
+
   if (done) {
-    listItemElem.classList.add('list__item_done');
+    listItemElem.classList.add('list-item_done');
   }
-  listItemElem.append(checkbox, text);
+
+  const textElem = document.createElement('span');
+  textElem.classList.add('list-item__text');
+  textElem.textContent = text;
+
+  const deleteBtnElem = document.createElement('button');
+  deleteBtnElem.classList.add('list-item__delete-btn');
+
+  listItemElem.append(checkbox, text, deleteBtnElem);
 
   return listItemElem;
 }
