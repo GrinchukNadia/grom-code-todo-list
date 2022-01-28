@@ -1,4 +1,4 @@
-import { getTasksList } from './tasksGateway.js';
+import { getTasksList } from '../tasksGateway.js';
 
 function compareTasks(a, b) {
   if (a.done - b.done !== 0) {
@@ -15,10 +15,11 @@ function createCheckbox({ done}) {
   checkbox.setAttribute('type', 'checkbox');
   checkbox.checked = done;
   checkbox.classList.add('list-item__checkbox');
+  // console.log(checkbox)
   return checkbox;
 }
 
-function createListItem({ text, done, id }) {
+export const createListItem = ({ text, done, id }) => {
   const listItemElem = document.createElement('li');
   listItemElem.classList.add('list-item', 'list__item');
   listItemElem.setAttribute('data-id', id)
@@ -37,6 +38,7 @@ function createListItem({ text, done, id }) {
 
   listItemElem.append(checkbox, text, deleteBtnElem);
 
+  console.log(typeof JSON.stringify(listItemElem))
   return listItemElem;
 }
 
