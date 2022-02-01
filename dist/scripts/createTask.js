@@ -1,15 +1,6 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.onClickAdd = onClickAdd;
-
-var _render = require("./render/render.js");
-
-var _tasksGateway = require("./tasksGateway.js");
-
-function onClickAdd() {
+import { renderTasks } from "./render/render.js";
+import { createTask, getTasksList } from "./tasksGateway.js";
+export function onClickAdd() {
   const taskInputElem = document.querySelector('.task-input');
   const text = taskInputElem.value;
 
@@ -23,7 +14,6 @@ function onClickAdd() {
     done: false,
     createDate: new Date().toISOString()
   };
-  (0, _tasksGateway.createTask)(newTask).then(() => (0, _tasksGateway.getTasksList)()).then(() => (0, _render.renderTasks)());
+  createTask(newTask).then(() => getTasksList()).then(() => renderTasks());
 }
-
 ;

@@ -1,17 +1,8 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.initToDoListHandlers = initToDoListHandlers;
-
-var _createTask = require("./createTask.js");
-
-var _updateTask = require("./updateTask.js");
-
-function initToDoListHandlers() {
+import { onClickAdd } from "./createTask.js";
+import { onListClick } from "./updateTask.js";
+export function initToDoListHandlers() {
   const creatBtnElem = document.querySelector('.create-task-btn');
-  creatBtnElem.addEventListener('click', _createTask.onClickAdd);
+  creatBtnElem.addEventListener('click', onClickAdd);
   const listElem = document.querySelector('.list');
-  listElem.addEventListener('click', _updateTask.onListClick);
+  listElem.addEventListener('click', onListClick);
 }

@@ -1,13 +1,5 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.onListClick = void 0;
-
-var _render = require("./render/render.js");
-
-var _tasksGateway = require("./tasksGateway.js");
+import { renderTasks } from './render/render.js';
+import { deleteTask, getTasksList, updateTask } from './tasksGateway.js';
 
 const createUpdatedTasks = (tasks, event, taskId) => {
   const {
@@ -26,15 +18,15 @@ const createUpdatedTasks = (tasks, event, taskId) => {
 
 const onClickToggle = (id, event) => {
   const taskId = id;
-  (0, _tasksGateway.getTasksList)().then(tasks => createUpdatedTasks(tasks, event, taskId)).then(data => (0, _tasksGateway.updateTask)(taskId, data)).then(() => (0, _render.renderTasks)());
+  getTasksList().then(tasks => createUpdatedTasks(tasks, event, taskId)).then(data => updateTask(taskId, data)).then(() => renderTasks());
 };
 
 const onClickDelete = id => {
   const taskId = id;
-  (0, _tasksGateway.deleteTask)(taskId).then(() => (0, _tasksGateway.getTasksList)()).then(() => (0, _render.renderTasks)());
+  deleteTask(taskId).then(() => getTasksList()).then(() => renderTasks());
 };
 
-const onListClick = event => {
+export const onListClick = event => {
   const id = event.target.parentElement.dataset.id;
 
   if (event.target.type === 'checkbox') {
@@ -45,5 +37,3 @@ const onListClick = event => {
     onClickDelete(id);
   }
 };
-
-exports.onListClick = onListClick;

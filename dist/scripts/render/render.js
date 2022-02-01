@@ -1,16 +1,6 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.createListItem = void 0;
-exports.renderTasks = renderTasks;
-
-require("core-js/modules/es.array.sort.js");
-
-require("core-js/modules/web.dom-collections.iterator.js");
-
-var _tasksGateway = require("../tasksGateway.js");
+import "core-js/modules/es.array.sort.js";
+import "core-js/modules/web.dom-collections.iterator.js";
+import { getTasksList } from '../tasksGateway.js';
 
 function compareTasks(a, b) {
   if (a.done - b.done !== 0) {
@@ -36,7 +26,7 @@ function createCheckbox(_ref) {
   return checkbox;
 }
 
-const createListItem = _ref2 => {
+export const createListItem = _ref2 => {
   let {
     text,
     done,
@@ -61,13 +51,10 @@ const createListItem = _ref2 => {
   listItemElem.append(checkbox, text, deleteBtnElem);
   return listItemElem;
 };
-
-exports.createListItem = createListItem;
-
-function renderTasks() {
+export function renderTasks() {
   const listElem = document.querySelector('.list');
   listElem.innerHTML = '';
-  (0, _tasksGateway.getTasksList)().then(tasks => {
+  getTasksList().then(tasks => {
     const tasksElems = tasks.sort(compareTasks).map(createListItem);
     listElem.append(...tasksElems);
   });

@@ -1,21 +1,9 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.updateTask = exports.getTasksList = exports.deleteTask = exports.createTask = void 0;
-
-require("core-js/modules/es.promise.js");
-
+import "core-js/modules/es.promise.js";
 const baseUrl = 'https://61eaff907ec58900177cdb49.mockapi.io/api/v1/tasks';
-
-const getTasksList = () => {
+export const getTasksList = () => {
   return fetch(baseUrl).then(response => response.json());
 };
-
-exports.getTasksList = getTasksList;
-
-const createTask = taskData => {
+export const createTask = taskData => {
   return fetch(baseUrl, {
     method: 'POST',
     headers: {
@@ -24,10 +12,7 @@ const createTask = taskData => {
     body: JSON.stringify(taskData)
   });
 };
-
-exports.createTask = createTask;
-
-const updateTask = (taskId, updatedTaskData) => {
+export const updateTask = (taskId, updatedTaskData) => {
   return fetch("".concat(baseUrl, "/").concat(taskId), {
     method: 'PUT',
     headers: {
@@ -36,13 +21,8 @@ const updateTask = (taskId, updatedTaskData) => {
     body: JSON.stringify(updatedTaskData)
   });
 };
-
-exports.updateTask = updateTask;
-
-const deleteTask = taskId => {
+export const deleteTask = taskId => {
   return fetch("".concat(baseUrl, "/").concat(taskId), {
     method: 'DELETE'
   });
 };
-
-exports.deleteTask = deleteTask;
