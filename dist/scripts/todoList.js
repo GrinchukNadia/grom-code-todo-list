@@ -1,10 +1,17 @@
-import { onClickAdd } from "./createTask.js";
-import { onListClick } from "./updateTask.js";
+"use strict";
 
-export function initToDoListHandlers() {
-  const creatBtnElem = document.querySelector('.create-task-btn');
-  creatBtnElem.addEventListener('click', onClickAdd);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.initToDoListHandlers = initToDoListHandlers;
 
-  const listElem = document.querySelector('.list');
-  listElem.addEventListener('click', onListClick);
+var _createTask = require("./createTask.js");
+
+var _updateTask = require("./updateTask.js");
+
+function initToDoListHandlers() {
+  var creatBtnElem = document.querySelector('.create-task-btn');
+  creatBtnElem.addEventListener('click', _createTask.onClickAdd);
+  var listElem = document.querySelector('.list');
+  listElem.addEventListener('click', _updateTask.onListClick);
 }

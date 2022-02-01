@@ -8,8 +8,8 @@
     "test:watch": "jest —watch",
     "build:styles": "sass ./src/styles/index.scss  ./dist/styles.css",
     "copy:html": "cp ./src/index.html ./dist/index.html",
-    "copy:scripts": "cp -R ./src/scripts ./dist/scripts",
-    "clean": "rm -rf ./dist",
+    "copy:scripts": "babel ./src/scripts --out-dir=./dist/scripts",
+    "clean": "rm -rf ./dist/*",
     "build": "npm-run-all clean build:styles copy:*"
   },
   "repository": {
@@ -24,9 +24,14 @@
   },
   "homepage": "https://github.com/GrinchukNadia/grom-code-todo-list#readme",
   "devDependencies": {
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
-    "jest": "^27.4.7",
     "npm-run-all": "^4.1.5",
+    "jest": "^27.4.7",
     "sass": "^1.49.0"
+  },
+  "dependencies": {
+    "core-js": "^3.21.0"
   }
 }

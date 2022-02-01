@@ -1,18 +1,22 @@
-import { renderTasks } from "./render/render.js";
-import { initToDoListHandlers } from "./todoList.js";
-import { getTasksList } from "./tasksGateway.js";
+"use strict";
 
+var _render = require("./render/render.js");
 
-document.addEventListener('DOMContentLoaded', () => {
-  getTasksList()
-    .then(() => renderTasks())
-  initToDoListHandlers();
-})
+var _todoList = require("./todoList.js");
 
-const onStorageChange = (e) => {
-  if(e.key === 'tasksList') {
-    renderTasks()
+var _tasksGateway = require("./tasksGateway.js");
+
+document.addEventListener('DOMContentLoaded', function () {
+  (0, _tasksGateway.getTasksList)().then(function () {
+    return (0, _render.renderTasks)();
+  });
+  (0, _todoList.initToDoListHandlers)();
+});
+
+var onStorageChange = function onStorageChange(e) {
+  if (e.key === 'tasksList') {
+    (0, _render.renderTasks)();
   }
-}
+};
 
-window.addEventListener('storage', onStorageChange)
+window.addEventListener('storage', onStorageChange);
