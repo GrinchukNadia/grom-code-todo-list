@@ -1,5 +1,5 @@
-import { renderTasks } from './render.js';
-import { deleteTask, getTasksList, updateTask } from './tasksGateway.js';
+import { renderTasks } from './render';
+import { deleteTask, getTasksList, updateTask } from './tasksGateway';
 
 const createUpdatedTasks = (tasks, event, taskId) => {
   const { text, createDate } = tasks.find((task) => task.id === taskId);
@@ -11,13 +11,13 @@ const createUpdatedTasks = (tasks, event, taskId) => {
     finishDate: done ? new Date().toISOString() : null,
   };
   return updatedTasks;
-}
+};
 
 const onClickToggle = (id, event) => {
   const taskId = id;
 
   getTasksList()
-    .then(tasks => createUpdatedTasks(tasks, event, taskId))
+    .then((tasks) => createUpdatedTasks(tasks, event, taskId))
     .then((data) => updateTask(taskId, data))
     .then(() => renderTasks());
 };
@@ -30,7 +30,7 @@ const onClickDelete = (id) => {
 };
 
 export const onListClick = (event) => {
-  const id = event.target.parentElement.dataset.id;
+  const { id } = event.target.parentElement.dataset;
 
   if (event.target.type === 'checkbox') {
     onClickToggle(id, event);

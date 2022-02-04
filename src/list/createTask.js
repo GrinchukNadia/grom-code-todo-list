@@ -1,5 +1,5 @@
-import { renderTasks } from "./render.js";
-import { createTask, getTasksList } from "./tasksGateway.js";
+import { renderTasks } from './render';
+import { createTask, getTasksList } from './tasksGateway';
 
 export function onClickAdd() {
   const taskInputElem = document.querySelector('.task-input');
@@ -15,9 +15,9 @@ export function onClickAdd() {
     text,
     done: false,
     createDate: new Date().toISOString(),
-  }
+  };
 
   createTask(newTask)
     .then(() => getTasksList())
     .then(() => renderTasks());
-};
+}
